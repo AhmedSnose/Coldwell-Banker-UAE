@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import { SOCIAL_MEDIA_LINKS } from '@/constants';
 
 interface FooterProps {
   className?: string;
@@ -70,42 +71,24 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
               
               {/* Social Media Icons */}
               <div className="flex gap-[8px] sm:gap-[12px] md:gap-[16px] justify-center items-center mr-0 sm:mr-[10px] md:mr-[20px]">
-                <button 
-                  className="w-[40px] h-[40px] bg-global-6 rounded-[16px] p-[5px] sm:p-[7px] md:p-[10px] hover:opacity-80 transition-opacity duration-200"
-                  aria-label="Social Media 1"
-                >
-                  <Image
-                    src="/images/img_group_27.svg"
-                    alt="Social Icon 1"
-                    width={20}
-                    height={20}
-                    className="w-full h-full"
-                  />
-                </button>
-                <button 
-                  className="w-[40px] h-[40px] bg-global-6 rounded-[16px] p-[6px] sm:p-[9px] md:p-[12px] hover:opacity-80 transition-opacity duration-200"
-                  aria-label="Social Media 2"
-                >
-                  <Image
-                    src="/images/img_group_28.svg"
-                    alt="Social Icon 2"
-                    width={16}
-                    height={16}
-                    className="w-full h-full"
-                  />
-                </button>
-                <button 
-                  className="w-[40px] h-[40px] bg-global-6 rounded-[16px] p-[5px] sm:p-[7px] md:p-[10px] hover:opacity-80 transition-opacity duration-200"
-                  aria-label="Social Media 3"
-                >
-                  <Image
-                    src="/images/img_group_29.svg"
-                    alt="Social Icon 3"
-                    width={20}
-                    height={20}
-                    className="w-full h-full"
-                  />
-                </button>
+                {SOCIAL_MEDIA_LINKS.map((social) => (
+                  <a
+                    key={social.id}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-[40px] h-[40px] bg-gray-800 rounded-[16px] p-[5px] sm:p-[7px] md:p-[10px] hover:opacity-80 transition-opacity duration-200 flex items-center justify-center"
+                    aria-label={social.ariaLabel}
+                  >
+                    <Image
+                      src={social.icon}
+                      alt={social.name}
+                      width={20}
+                      height={20}
+                      className="w-full h-full object-contain"
+                    />
+                  </a>
+                ))}
               </div>
             </div>
           </div>

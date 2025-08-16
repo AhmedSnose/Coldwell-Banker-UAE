@@ -52,7 +52,8 @@
     "react-dom": "18.2.0",
     "@dhiwise/component-tagger": "^1.0.10",
     "@tailwindcss/typography": "^0.5.16",
-    "recharts": "^2.15.2"
+    "recharts": "^2.15.2",
+    "framer-motion": "^10.16.16"
   },
   "devDependencies": {
     "@types/node": "^20",

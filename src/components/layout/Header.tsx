@@ -1,6 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { NAVIGATION_ITEMS } from '@/constants';
+import { NavigationItem } from '@/types';
+import { handleDownload } from '@/utils';
+import Button from '@/components/ui/Button';
 
 interface HeaderProps {
   className?: string;
@@ -8,6 +12,15 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleNavClick = (item: NavigationItem) => {
+    if (item.onClick) {
+      item.onClick();
+    } else if (item.id === 'download') {
+      handleDownload();
+    }
+    setMenuOpen(false);
+  };
 
   return (
     <header className={`w-full ${className}`}>
@@ -43,20 +56,30 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           </button>
 
           {/* Navigation Menu */}
-          <nav className={`${menuOpen ? 'block' : 'hidden'} lg:block absolute lg:relative top-full lg:top-auto left-0 lg:left-auto w-full lg:w-auto bg-global-1 lg:bg-transparent z-50 lg:z-auto`}>
+          <nav className={`${menuOpen ? 'block' : 'hidden'} lg:block absolute lg:relative top-full lg:top-auto left-0 lg:left-auto w-full lg:w-auto bg-black lg:bg-transparent z-50 lg:z-auto border-t lg:border-t-0 border-gray-800`}>
             <div className="flex flex-col lg:flex-row items-center gap-[3px] sm:gap-[4px] md:gap-[6px] p-4 lg:p-0">
-              <button 
-                role="menuitem"
-                className="text-sm font-poppins font-normal leading-[21px] text-center text-global-1 hover:text-global-2 transition-colors duration-200 px-2 py-1"
-              >
-                Home
-              </button>
-              <button 
-                role="menuitem"
-                className="text-sm font-poppins font-normal leading-[21px] text-center text-global-2 bg-[linear-gradient(131deg,#ff9797_0%,_#8053ff_100%)] hover:opacity-90 transition-opacity duration-200 px-[14px] py-[5px] sm:px-[28px] sm:py-[10px] rounded-[5px]"
-              >
-                Download Template
-              </button>
+              {NAVIGATION_ITEMS.map((item) => (
+                item.isButton ? (
+                  <Button
+                    key={item.id}
+                    variant={item.variant || 'primary'}
+                    size="sm"
+                    onClick={() => handleNavClick(item)}
+                    className="text-sm font-poppins font-normal leading-[21px] text-center"
+                  >
+                    {item.label}
+                  </Button>
+                ) : (
+                  <button
+                    key={item.id}
+                    role="menuitem"
+                    onClick={() => handleNavClick(item)}
+                    className="text-sm font-poppins font-normal leading-[21px] text-center text-white hover:text-purple-400 transition-colors duration-200 px-2 py-1"
+                  >
+                    {item.label}
+                  </button>
+                )
+              ))}
             </div>
           </nav>
         </div>

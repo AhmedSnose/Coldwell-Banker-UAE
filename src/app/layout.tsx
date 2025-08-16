@@ -1,4 +1,5 @@
 import React from 'react';
+import { APP_METADATA } from '@/constants';
 import '../styles/index.css';
 
 export const viewport = {
@@ -7,8 +8,32 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: 'Next.js with Tailwind CSS',
-  description: 'A boilerplate project with Next.js and Tailwind CSS',
+  title: APP_METADATA.title,
+  description: APP_METADATA.description,
+  keywords: APP_METADATA.keywords,
+  author: APP_METADATA.author,
+  openGraph: {
+    title: APP_METADATA.title,
+    description: APP_METADATA.description,
+    url: APP_METADATA.url,
+    siteName: 'Squid Design Services',
+    images: [
+      {
+        url: APP_METADATA.image,
+        width: 1200,
+        height: 630,
+        alt: APP_METADATA.title,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: APP_METADATA.title,
+    description: APP_METADATA.description,
+    images: [APP_METADATA.image],
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', type: 'image/x-icon' }

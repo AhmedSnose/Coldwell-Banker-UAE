@@ -1,5 +1,7 @@
 'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
+import { buttonHover, buttonTap } from '@/utils/animations';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -68,10 +70,12 @@ const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElemen
   );
 
   return (
-    <button
+    <motion.button
       type={type}
       onClick={disabled || loading ? undefined : onClick}
       disabled={disabled || loading}
+      whileHover={disabled || loading ? {} : buttonHover}
+      whileTap={disabled || loading ? {} : buttonTap}
       className={`
         ${responsiveRadius}
         transition-all 
@@ -83,7 +87,7 @@ const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElemen
         ${variants[variant]} 
         ${sizes[size]} 
         ${fullWidth ? 'w-full' : ''}
-        ${disabled || loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-105 active:scale-95'} 
+        ${disabled || loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} 
         ${loading ? 'relative' : ''}
         font-medium
         inline-flex
@@ -100,7 +104,7 @@ const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElemen
     >
       {loading && <LoadingSpinner />}
       <span className={loading ? 'opacity-75' : ''}>{children}</span>
-    </button>
+    </motion.button>
   );
 };
 
